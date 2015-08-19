@@ -42,27 +42,32 @@ careful performance testing and use of assembly for some critical operations.
 FAQ
 ---
 
-Q: How do I build TurboJSON? There is no makefile/Visual Studio file!
+<strong>Q: How do I build TurboJSON? There is no makefile/Visual Studio file!</strong>
+
 A: You need SCons and Python 2.7 (not 3). There is a Python 2.7 installer for Windows, and 
 another for SCons. You can usually get SCons from your package manager on Linux, BSD, or Haiku,
 and homebrew or fink on OS X.
 To build, just type `scons`.
 
-Q: What is the license?
+<strong>Q: What is the license?</strong>
+
 A: TurboJSON is licensed under the BSD 3-clause license. A copy is included in the LICENSE file.
 
-Q: There is no ASM for (insert CPU here).
+<strong>Q: There is no ASM for (insert CPU here).</strong>
+
 A: That's not a question :) I accept patches for any platform, even if I don't own a machine to test
 it on.
 I am particularly interested in getting UltraSparc, ARMv6, and PowerPC modules added. I'm also fine
 with only replacing some C modules on some platforms.
 
-Q: I don't have yasm. Can I use another assembler?
+<strong>Q: I don't have yasm. Can I use another assembler?</strong>
+
 A: Yes. Adding the 'assembler' argument can override the assembler used, although only a certain syntax
 is supported on each platform.
 For example, if you wanted to use nasm rather than yasm, you could build with `scons assembler=nasm`.
 
-Q: Isn't that much assembly a bad idea? Isn't it not portable?
+<strong>Q: Isn't that much assembly a bad idea? Isn't it not portable?</strong>
+
 A: You caught me! Yes, each assembly file only works on a single CPU type :)
 All the assembly modules are carefully profiled to be up to an order of magnitude faster
 than the C modules they complement.
