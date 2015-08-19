@@ -1,4 +1,6 @@
 #include "turbojson.hpp"
+#include "whitespace.h"
+#include "parse_number.h"
 
 namespace TurboJSON {
 
@@ -67,6 +69,31 @@ public:
     const std::vector<std::unique_ptr<Value> > *Array() const override { return &array; };
 };
 
-Value *Parse(const std::string &source);
+Value *ParseNumber(const std::string &str, std::string::const_iterator &i, const std::string::const_iterator){
+    double that;
+    
+    const int difference = ::ParseNumber(str.c_str() + (i - str.cbegin()), &that);
+    if(difference<0)
+        return nullptr;
+    
+    i+=difference;
+    
+    return new NumberValue(that);
+    
+}
+
+Value *ParseValue(const std::string &str, std::string::const_iterator &i, const std::string::const_iterator end);
+
+Value *Parse(const std::string &source){
+    std::string::const_iterator i = source.cbegin() + skip_whitespace(source.c_str(), source.length());
+    
+    if(*i=='[' || *i=='{'){
+        return ParseValue(source, i, source.cend());
+    }
+    else{
+        printf("Illegal char '%c' at start of JSON root\n", *i);
+        return nullptr;
+    }
+}
 
 } // namespace TurboJSON
