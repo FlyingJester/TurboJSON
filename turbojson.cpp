@@ -1,6 +1,7 @@
 #include "turbojson.hpp"
 #include "whitespace.h"
 #include "parse_number.h"
+#include "string.h"
 
 namespace TurboJSON {
 
@@ -82,7 +83,48 @@ Value *ParseNumber(const std::string &str, std::string::const_iterator &i, const
     
 }
 
-Value *ParseValue(const std::string &str, std::string::const_iterator &i, const std::string::const_iterator end);
+Value *ParseValue(const std::string &str, std::string::const_iterator &i, const std::string::const_iterator end){
+    switch(*i){
+        case '[':
+        
+        case '{':
+        case '"':
+        
+        case '0':
+        case '9':
+        case '8':
+        case '7':
+        case '6':
+        case '5':
+        case '4':
+        case '3':
+        case '2':
+        case '1':
+            return ParseNumber(str, i, end);
+            
+        case 'n':
+            if(compare_strings(str.c_str() + (i - str.cbegin()), "null", 4))
+                return new NullValue();
+            else
+                return nullptr;
+        case 't':
+            if(compare_strings(str.c_str() + (i - str.cbegin()), "true", 4))
+                return new NullValue();
+            else
+                return nullptr;
+            
+        case 'f':
+            if(compare_strings(str.c_str() + (i - str.cbegin()), "false", 5))
+                return new NullValue();
+            else
+                return nullptr;
+        
+        break;
+        default:
+            return nullptr;
+    }
+    return nullptr;
+}
 
 Value *Parse(const std::string &source){
     std::string::const_iterator i = source.cbegin() + skip_whitespace(source.c_str(), source.length());
