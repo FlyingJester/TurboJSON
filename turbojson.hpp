@@ -4,10 +4,8 @@
 #include <string>
 #include <memory>
 
-namespace Turbo {
+namespace TurboJSON {
 
-class JSON {
-public:
     enum Type {Null, Boolean, String, Number, Object, Array};
     class Value {
     public:
@@ -24,9 +22,6 @@ public:
 
     };
 
-    
+    Value *Parse(const std::string &source);
 
-};
-
-
-} // namespace Turbo
+} // namespace TurboJSON
