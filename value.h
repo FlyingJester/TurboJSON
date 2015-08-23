@@ -13,7 +13,7 @@ struct Turbo_Value{
     union{
         double number;
         int boolean;
-        const char *string;
+        char *string;
         struct Turbo_Value *array;
         struct Turbo_Property *object;
         struct { const char *message, *at; } error;

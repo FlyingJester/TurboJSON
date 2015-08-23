@@ -85,7 +85,7 @@ const char *Turbo_Object(struct Turbo_Value *to, const char *in, const char *con
         return in+1;
 fail:
         puts("Fail");
-
+        free(name.value.string);
         free(values);
         return NULL;
     }
