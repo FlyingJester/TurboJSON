@@ -4,37 +4,16 @@ TurboJSON
 Fast JSON parser with a sensible parse tree
 -------------------------------------------
 
-* Fast Parsing, up to 250 MB of naive JSON a second
+* Fast Parsing, up to 200 MB of naive JSON a second
 * Sensible Parse Tree, Objects are std::maps, Arrays are std::vectors, etc
-* Simple Interface, just call TurboJSON::Parse(const std::string &) and get an object back
+* Fast C api for more time-sensitive usage
 
 Overview
 --------
 
 TurboJSON is a fast JSON parser with a sensible parse tree. It is designed to parse at least
-as fast as RapidJSON or sajson. It exposes a more sensible than some parsers such as RapidJSON,
-by using STL types.
-
-The API is extremely simple:
-
-```
-// Creates a parse tree...
-TurboJSON::Value *TurboJSON::Parse(const std::string &);
-
-// A Value Object...
-enum Type {Null, Boolean, String, Number, Object, Array};
-class Value {
-    // Determine the type...
-    Type type() const;
-    
-    // Cast the value...
-    bool Boolean() const;
-    double Number() const;
-    const std::string &String() const;
-    const std::vector<std::unique_ptr<Value> > *Array() const;
-    const std::map<std::string, std::unique_ptr<Value> > *Object() const;
-};
-```
+as fast as RapidJSON or sajson. It exposes a more sensible parser tree than some parsers such 
+as RapidJSON, by using STL types.
 
 The somewhat higher speed compared to otherwise similar JSON parsers is accomplished with
 careful performance testing and use of assembly for some critical operations.
@@ -75,5 +54,5 @@ Additionally, all assembly modules have counterparts in portable C that perform 
 function for platforms that are not supported otherwise. None of the library exists without a portable
 C implementation.
 Assembly is only used when it provides around 5x or greater performance on a particular platform. As
-an example, scanning whitespace is almost 10x faster on amd64 using ASM rather than C, and finding the
-end of a string literal is almost 6x faster in ASM.
+an example, scanning whitespace is almost 4x faster on amd64 using ASM rather than C, and finding the
+end of a string literal is almost 2x faster in ASM.
