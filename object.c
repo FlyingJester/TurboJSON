@@ -23,7 +23,7 @@ const char *Turbo_Object(struct Turbo_Value *to, const char *in, const char *con
     }
     else{
         
-        unsigned capacity = 8;
+        unsigned capacity = 4;
         struct Turbo_Property *values = malloc(sizeof(struct Turbo_Property) * capacity);
         
         struct Turbo_Value name;
@@ -71,7 +71,7 @@ const char *Turbo_Object(struct Turbo_Value *to, const char *in, const char *con
             in+=SkipWhitespace(in, end-in);
             
         }while(1);
-
+        
         in+=SkipWhitespace(in, end-in);
 
         if(*in!='}'){

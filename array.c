@@ -20,8 +20,7 @@ const char *Turbo_Array(struct Turbo_Value *to, const char *in, const char *cons
         return in+1;
     }
     else{
-        
-        unsigned capacity = 4;
+        unsigned capacity = 16;
         struct Turbo_Value *values = malloc(sizeof(struct Turbo_Value) * capacity);
         
         do{
