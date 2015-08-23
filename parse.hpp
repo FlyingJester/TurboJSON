@@ -36,9 +36,10 @@ namespace Turbo {
         }
     }
     
-    static inline std::string GetString(const struct Turbo_Value &in){
+    template<class T = std::string>
+    T GetString(const struct Turbo_Value &in){
         assert(in.type==TJ_String);
-        return std::string(in.value.string, in.value.string + in.length);
+        return in.value.string;
     }
         
     template<class T = double>

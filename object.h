@@ -7,7 +7,6 @@ extern "C" {
 
 struct Turbo_Property {
     char *name;
-    unsigned name_length;
     struct Turbo_Value value;
 };
 

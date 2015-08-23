@@ -36,7 +36,7 @@ else:
     AddModule("whitespace", environment, tj_modules, False)
     AddModule("number_literal", environment, tj_modules, False)
 
-environment.Append(CCFLAGS = " -O2 -ansi ")
+environment.Append(CCFLAGS = " -Os -ansi ")
 
 turbojson = environment.Library("turbojson", tj_source + tj_modules)
 

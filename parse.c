@@ -27,14 +27,19 @@ int TurboFree(struct Turbo_Value *that){
             free((void *)that->value.error.message);
             return 0;
         case TJ_String:
-/*            free(that->value.string); */
+            free(that->value.string);
             return 0;
         case TJ_Array:
             free(that->value.array);
             that->value.array = NULL;
             return that->length = 0;
         case TJ_Object:
-            free(that->value.object);
+            { int i = 0;
+                while(i<that->length){
+                    free(that->value.object[i++].name);
+                }
+                free(that->value.object);
+            }
             that->value.object = NULL;
             return that->length = 0;
         default:

@@ -58,7 +58,6 @@ const char *Turbo_Object(struct Turbo_Value *to, const char *in, const char *con
                 goto fail;
             
             values[to->length-1].name = name.value.string;
-            values[to->length-1].name_length = name.length;
             
             name.type = TJ_Null;
             name.value.string = NULL;
