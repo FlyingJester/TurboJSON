@@ -16,7 +16,7 @@ struct Turbo_Value{
         char *string;
         struct Turbo_Value *array;
         struct Turbo_Property *object;
-        struct { const char *message, *str, *at; } error;
+        struct { const char *message, *at; } error;
     } value;
 };
 

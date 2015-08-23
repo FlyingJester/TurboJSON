@@ -4,7 +4,7 @@
 #include <string.h>
 #include <assert.h>
 
-const char *Turbo_String(struct Turbo_Value *to, const char *in, const char *const end){
+const char *Turbo_StringCopy(struct Turbo_Value *to, const char *in, const char *const end){
     if(end){}
 
     to->type = TJ_String;
@@ -22,8 +22,31 @@ const char *Turbo_String(struct Turbo_Value *to, const char *in, const char *con
         to->value.string = malloc(length+1);
         to->value.string[length] = 0;
         to->length = length;
+
         memcpy(to->value.string, in, length);
+
+        return next+1;
+    }
+}
+
+const char *Turbo_String(struct Turbo_Value *to, const char *in, const char *const end){
+    if(end){}
+
+    to->type = TJ_String;
+
+    assert(*in=='"');
+    in++;
+    {
+        const uint64_t length = FindQuote(in);
+        const char * const next = in + length;
         
+        assert(next[-1]!='\\');
+        if(next[0]!='"')
+            return NULL;
+        
+        to->value.string = in;
+        to->length = length;
+
         return next+1;
     }
 }
