@@ -1,14 +1,12 @@
 #pragma once
-
-#include <stdint.h>
-
+#include "value.h"
+#include <stdio.h>
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-uint64_t find_quote(const char *in, unsigned length);
-/* returns 0 for different, 1 for same */ 
-uint64_t compare_strings(const char *in, const char *to, uint64_t to_length);
+const char *Turbo_String(struct Turbo_Value *to, const char *in, const char *const end);
+void Turbo_WriteString(struct Turbo_Value *that, FILE *out, int level);
 
 #ifdef __cplusplus
 }

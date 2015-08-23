@@ -4,4 +4,4 @@
 #ifdef __cplusplus
 extern "C"
 #endif
-uint64_t skip_whitespace(const char *in, uint64_t length);
+uint64_t SkipWhitespace(const char *in, uint64_t length);

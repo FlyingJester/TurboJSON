@@ -1,20 +1,42 @@
+import os
 import sys
 
-Import("default_environment")
+Import("environment")
 
-environment = default_environment.Clone()
-environment.Replace(AS = ARGUMENTS.get('assembler', 'yasm'))
-utils = ["whitespace.c", "string.c", "char_type.c"]
+environment = Environment(tools=['default', 'nasm'])
+environment.Replace(AS = "yasm")
 
 disable_asm = False
+tj_source = ["array.c", "number.c", "object.c", "string.c", "error.c", "parse.c"]
+tj_modules = []
 
-if sys.platform == 'darwin' and not disable_asm:
-    environment.Append(ASFLAGS = " -f macho64")
-    utils = ["whitespace.amd64.s", "string.amd64.s", "char_type.amd64.s"]
-elif sys.platform.startswith('linux') and not disable_asm:
-    environment.Append(ASFLAGS = " -f elf64 ")
-    utils = ["whitespace.amd64.s", "string.amd64.s"]
+def AddModule(name, env, module_list, asm):
+    module_path = os.path.join(os.path.join(os.getcwd(), "modules"), name)
+    env.Append(CPPPATH = [module_path])
+    if asm:
+        module_list+=[os.path.join(module_path, name + ".amd64.s")]
+    else:
+        module_list+=[os.path.join(module_path, name + ".c")]
 
-turbojson = environment.StaticLibrary("turbojson", ["turbojson.cpp", "parse_number_utils.c"] + utils)
+if (sys.platform == 'darwin' or platform.machine() == 'x86_64') and not disable_asm:
+    environment.Append(ASFLAGS = " -f macho64 -m amd64")
+    tj_source += ["value.amd64.s", "value_utils.c"]
+    environment.Append(CPPDEFINES = "NDEBUG=1")
+    AddModule("find_quote", environment, tj_modules, True)
+    AddModule("literal_atom", environment, tj_modules, True)
+    AddModule("whitespace", environment, tj_modules, True)
+    AddModule("number_literal", environment, tj_modules, False)
+else:
+    tj_source += ["value.c"]
+    AddModule("find_quote", environment, tj_modules, False)
+    AddModule("literal_atom", environment, tj_modules, False)
+    AddModule("whitespace", environment, tj_modules, False)
+    AddModule("number_literal", environment, tj_modules, False)
+
+environment.Append(CCFLAGS = " -O3 -ansi -g ", LINKFLAGS = " -g ")
+
+turbojson = environment.Library("turbojson", tj_source + tj_modules)
+
+test = environment.Program("test", ["test.c"], LIBS = [turbojson])
 
 Return("turbojson")
