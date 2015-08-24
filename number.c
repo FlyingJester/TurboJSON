@@ -6,13 +6,7 @@
 const char *Turbo_Number(struct Turbo_Value *to, const char *in, const char *const end){
     if(end){}
     assert( TURBO_IS_STARTING_DIGIT(*in) );
-    if((in[1]<'0') || (in[1]>'9')){
-        to->value.number = in[1] - '0';
-        in++;
-    }
-    else{
-        to->value.number = NumberLiteral(&in);
-    }
+    to->value.number = NumberLiteral(&in);
     to->type = TJ_Number;
     return in;
 }

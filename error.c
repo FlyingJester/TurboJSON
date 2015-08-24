@@ -13,9 +13,11 @@ const char *Turbo_Error(struct Turbo_Value *to, const char *in, const char * mes
         memcpy(msg, message, msg_len);
     }
 
-    to->value.error.message = msg;
-    to->value.error.at = in;
-    to->value.error.str = NULL;
+    to->value.error = malloc(sizeof(Turbo_Error));
+
+    to->value.error->message = msg;
+    to->value.error->at = in;
+    to->value.error->str = NULL;
     
     fprintf(stderr, "Error: %s (was %c)\n", message, *in);
     
@@ -23,12 +25,12 @@ const char *Turbo_Error(struct Turbo_Value *to, const char *in, const char * mes
 }
 
 void Turbo_WriteError(struct Turbo_Value *that, FILE *out, int level){
-    const char *z = that->value.error.at;
+    const char *z = that->value.error->at;
     unsigned newline = 0;
     do{
         z = strchr(z, '\n');
         newline++;
-    }while(z<that->value.error.str);
-    fprintf(out, "%i > Error on line %i: %s \t(was %c)\n", level, newline, that->value.error.message, *that->value.error.at);
+    }while(z<that->value.error->str);
+    fprintf(out, "%i > Error on line %i: %s \t(was %c)\n", level, newline, that->value.error->message, *that->value.error->at);
 }
 

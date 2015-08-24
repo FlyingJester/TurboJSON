@@ -24,10 +24,8 @@ int TurboJSON(struct Turbo_Value *to, const char *in, const char *end){
 int TurboFree(struct Turbo_Value *that){
     switch(that->type){
         case TJ_Error:
-            free((void *)that->value.error.message);
-            return 0;
-        case TJ_String:
-            free(that->value.string);
+            free((void *)that->value.error->message);
+            free(that->value.error);
             return 0;
         case TJ_Array:
             free(that->value.array);
@@ -35,9 +33,6 @@ int TurboFree(struct Turbo_Value *that){
             return that->length = 0;
         case TJ_Object:
             { int i = 0;
-                while(i<that->length){
-                    free(that->value.object[i++].name);
-                }
                 free(that->value.object);
             }
             that->value.object = NULL;
