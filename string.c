@@ -46,10 +46,8 @@ const char *Turbo_String(struct Turbo_Value *to, const char *in, const char *con
         if(next[0]!='"')
             return NULL;
         
-        to->value.string = malloc(length+1);
-        to->value.string[length] = 0;
+        to->value.string = in;
         to->length = length;
-        memcpy(to->value.string, in, length);
         
         return next+1;
     }

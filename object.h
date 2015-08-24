@@ -6,7 +6,8 @@ extern "C" {
 #endif
 
 struct Turbo_Property {
-    char *name;
+    const char *name;
+    unsigned name_length;
     struct Turbo_Value value;
 };
 
