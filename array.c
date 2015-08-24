@@ -7,7 +7,7 @@
 
 #define INIT_CAPACITY 8
 
-const char *Turbo_Array(struct Turbo_Value *to, const char *in, const char *const end){
+const char *Turbo_Array(struct Turbo_Value * __restrict__ to, const char *in, const char *const end){
     assert(*in=='[');
     in++;
 
@@ -46,8 +46,6 @@ const char *Turbo_Array(struct Turbo_Value *to, const char *in, const char *cons
             in+= SkipWhitespace(in, end-in);
             
         }while(1);
-
-        in+=SkipWhitespace(in, end-in);
 
         if(*in!=']'){
             free(values);
