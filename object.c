@@ -6,6 +6,8 @@
 #include <assert.h>
 #include <stdlib.h>
 
+#define INIT_CAPACITY 4
+
 const char *Turbo_Object(struct Turbo_Value *to, const char *in, const char *const end){
     assert(*in=='{');
     in++;
@@ -23,8 +25,8 @@ const char *Turbo_Object(struct Turbo_Value *to, const char *in, const char *con
     }
     else{
         
-        unsigned capacity = 4;
-        struct Turbo_Property *values = malloc(sizeof(struct Turbo_Property) * capacity);
+        unsigned capacity = INIT_CAPACITY;
+        struct Turbo_Property *values = malloc(sizeof(struct Turbo_Property) * INIT_CAPACITY);
         
         struct Turbo_Value name;
         name.value.string = NULL;
@@ -36,13 +38,22 @@ const char *Turbo_Object(struct Turbo_Value *to, const char *in, const char *con
                 capacity<<=1;
                 values = realloc(values, sizeof(struct Turbo_Property) * capacity);
             }
-            
-            if((next = Turbo_String(&name, in+SkipWhitespace(in, end-in), end))==0){
-                puts("Invalid property name");
-                goto fail;
+            {
+                in+=SkipWhitespace(in, end-in);
+                if(in[0]!='"')
+                    goto fail;
+
+                in++;
+
+                values[to->length-1].name_length = FindQuote(in);
+
+                values[to->length-1].name = in;
+                next = in+values[to->length-1].name_length+1;       
+                assert(next[-2]!='\\');
+
+                if(next[-1]!='"')
+                    goto fail;       
             }
-            
-            assert(name.type == TJ_String);
             
             in = next + SkipWhitespace(next, end-in);
 
@@ -56,10 +67,7 @@ const char *Turbo_Object(struct Turbo_Value *to, const char *in, const char *con
 
             if((next = Turbo_Value(&(values[to->length-1].value), in+SkipWhitespace(in, end-in), end))==0)
                 goto fail;
-            
-            values[to->length-1].name = name.value.string;
-            values[to->length-1].name_length = name.length;
-            
+
             name.type = TJ_Null;
             name.value.string = NULL;
             

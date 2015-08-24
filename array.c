@@ -5,6 +5,8 @@
 #include <assert.h>
 #include <stdlib.h>
 
+#define INIT_CAPACITY 8
+
 const char *Turbo_Array(struct Turbo_Value *to, const char *in, const char *const end){
     assert(*in=='[');
     in++;
@@ -20,14 +22,14 @@ const char *Turbo_Array(struct Turbo_Value *to, const char *in, const char *cons
         return in+1;
     }
     else{
-        unsigned capacity = 16;
-        struct Turbo_Value *values = malloc(sizeof(struct Turbo_Value) * capacity);
+        unsigned capacity = INIT_CAPACITY;
+        struct Turbo_Value *values = malloc(sizeof(struct Turbo_Value) * INIT_CAPACITY);
         
         do{
             const char *next;
             to->length++;
-            if(to->length >= capacity){
-                capacity<<=1;
+            if(to->length > capacity){
+                capacity<<=2;
                 values = realloc(values, sizeof(struct Turbo_Value) * capacity);
             }
             
