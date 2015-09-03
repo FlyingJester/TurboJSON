@@ -32,9 +32,7 @@ int TurboFree(struct Turbo_Value *that){
             that->value.array = NULL;
             return that->length = 0;
         case TJ_Object:
-            { int i = 0;
-                free(that->value.object);
-            }
+            free(that->value.object);
             that->value.object = NULL;
             return that->length = 0;
         default:

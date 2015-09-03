@@ -13,7 +13,7 @@ const char *Turbo_Error(struct Turbo_Value *to, const char *in, const char * mes
         memcpy(msg, message, msg_len);
     }
 
-    to->value.error = malloc(sizeof(Turbo_Error));
+    to->value.error = malloc(sizeof(struct Turbo_Error));
 
     to->value.error->message = msg;
     to->value.error->at = in;

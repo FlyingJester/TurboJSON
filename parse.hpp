@@ -21,7 +21,8 @@ namespace Turbo {
         to.clear();
         
         for(unsigned i = 0; i<in.length; i++){
-            to[in.value.object[i].name] = in.value.object[i].value;
+            std::string name(in.value.object[i].name, in.value.object[i].name+in.value.object[i].name_length);
+            to[name] = in.value.object[i].value;
         }
     }
 
@@ -39,12 +40,12 @@ namespace Turbo {
     template<class T = std::string>
     T GetString(const struct Turbo_Value &in){
         assert(in.type==TJ_String);
-        return in.value.string;
+        return T(in.value.string, in.value.string+in.length);
     }
         
     template<class T = double>
     T GetNumber(const struct Turbo_Value &in){
-        assert(in.type==TJ_Number); 
+        assert(in.type==TJ_Number);
         return in.value.number;
     }
     

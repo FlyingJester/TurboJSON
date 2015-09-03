@@ -3,10 +3,10 @@ import sys
 
 Import("environment")
 
-environment = Environment(tools=['default', 'nasm'])
+environment.Append(tools=['nasm'])
 environment.Replace(AS = "yasm")
 
-disable_asm = False
+disable_asm = True
 tj_source = ["array.c", "number.c", "object.c", "string.c", "error.c", "parse.c"]
 tj_modules = []
 
@@ -35,8 +35,6 @@ else:
     AddModule("literal_atom", environment, tj_modules, False)
     AddModule("whitespace", environment, tj_modules, False)
     AddModule("number_literal", environment, tj_modules, False)
-
-environment.Append(CCFLAGS = " -Os -ansi ")
 
 turbojson = environment.Library("turbojson", tj_source + tj_modules)
 

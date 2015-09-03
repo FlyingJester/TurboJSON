@@ -29,12 +29,12 @@ double NumberLiteral(const char **in){
     }
     {
         double divider = 1;
-        while(places--)
-            divider *= 10.0;
         
 /*        double divider = pow(10, places); */
         double fraction = decimal;
         double that = whole;
+        while(places--)
+            divider *= 10.0;
         
         fraction /= divider;
         
