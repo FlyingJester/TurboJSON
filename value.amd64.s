@@ -18,6 +18,8 @@ _Turbo_Value:
     je _Turbo_Array
     cmp byte [rsi], '{'
     je _Turbo_Object
+    cmp byte [rsi], '-'
+    je _Turbo_Number
     cmp byte [rsi], '0'
     jl _Turbo_ValueUtil
     cmp byte [rsi], '9'

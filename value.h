@@ -20,7 +20,7 @@ struct Turbo_Value{
     } value;
 };
 
-const char *Turbo_Value(struct Turbo_Value *to, const char *in, const char *const end);
+const char *Turbo_Value(struct Turbo_Value * __restrict__ to, const char *in, const char *const end);
 void Turbo_WriteValue(struct Turbo_Value *that, FILE *out, int level);
 
 #ifdef __cplusplus

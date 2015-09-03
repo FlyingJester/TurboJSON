@@ -1,6 +1,7 @@
 #include "error.h"
 #include <string.h>
 #include <stdlib.h>
+#include <assert.h>
 
 const char *Turbo_Error(struct Turbo_Value *to, const char *in, const char * message){
     const unsigned msg_len = (message)?strlen(message):0;
@@ -19,7 +20,10 @@ const char *Turbo_Error(struct Turbo_Value *to, const char *in, const char * mes
     to->value.error->at = in;
     to->value.error->str = NULL;
     
-    fprintf(stderr, "Error: %s (was %c)\n", message, *in);
+    
+    fprintf(stderr, "Error: %s (was %c%c%c -> %c <- %c%c%c)\n", message, in[-3], in[-2], in[-1], in[0], in[1], in[2], in[3]);
+
+    assert(0);
     
     return NULL;
 }

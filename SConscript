@@ -27,7 +27,7 @@ if (sys.platform == 'darwin' or (sys.platform.startswith('linux') and platform.m
     environment.Append(CPPDEFINES = "NDEBUG=1")
     AddModule("find_quote", environment, tj_modules, True)
     AddModule("literal_atom", environment, tj_modules, True)
-    AddModule("whitespace", environment, tj_modules, True)
+    AddModule("whitespace", environment, tj_modules, False)
     AddModule("number_literal", environment, tj_modules, False)
 else:
     tj_source += ["value.c"]

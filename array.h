@@ -5,7 +5,7 @@
 extern "C" {
 #endif
 
-const char *Turbo_Array(struct Turbo_Value *to, const char *in, const char *const end);
+const char *Turbo_Array(struct Turbo_Value * __restrict__ to, const char *in, const char *const end);
 void Turbo_WriteArray(struct Turbo_Value *that, FILE *out, int level);
 
 #ifdef __cplusplus

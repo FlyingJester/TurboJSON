@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <assert.h>
 
-const char *Turbo_Number(struct Turbo_Value *to, const char *in, const char *const end){
+const char *Turbo_Number(struct Turbo_Value * __restrict__ to, const char *in, const char *const end){
     if(end){}
     assert( TURBO_IS_STARTING_DIGIT(*in) );
     to->value.number = NumberLiteral(&in);

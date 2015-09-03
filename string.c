@@ -4,7 +4,7 @@
 #include <string.h>
 #include <assert.h>
 
-const char *Turbo_StringCopy(struct Turbo_Value *to, const char *in, const char *const end){
+const char *Turbo_StringCopy(struct Turbo_Value * __restrict__ to, const char *in, const char *const end){
     if(end){}
 
     to->type = TJ_String;
