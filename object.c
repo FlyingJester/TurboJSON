@@ -1,5 +1,6 @@
 #include "object.h"
 #include "whitespace.h"
+#include "find_quote.h"
 #include "error.h"
 #include "value.h"
 #include "string.h"
