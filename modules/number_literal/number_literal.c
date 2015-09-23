@@ -3,8 +3,9 @@
 
 #define N_POW_TEN 64
 
+/*
 static const double pow_of_ten[N_POW_TEN] = {
-     10e1,  10e2,  10e3,  10e4,  10e5,  10e6,  10e7,  10e8,
+     10e0, 10e1,  10e2,  10e3,  10e4,  10e5,  10e6,  10e7,  10e8,
      10e9,  10e10, 10e11, 10e12, 10e13, 10e14, 10e15, 10e16,
      10e17, 10e18, 10e19, 10e20, 10e21, 10e22, 10e23, 10e24,
      10e25, 10e26, 10e27, 10e28, 10e29, 10e30, 10e31, 10e32,
@@ -13,7 +14,7 @@ static const double pow_of_ten[N_POW_TEN] = {
      10e49, 10e50, 10e51, 10e52, 10e53, 10e54, 10e55, 10e56,
      10e57, 10e58, 10e59, 10e60, 10e61, 10e62, 10e63, 10e64
 };
-
+*/
 double NumberLiteral(const char **in){
     const char *at = *in;
     long whole = 0, decimal = 0, places = 0;
@@ -68,12 +69,8 @@ double NumberLiteral(const char **in){
                 at++;
             }
             
-            if(exponent_accum<64)
-                exponent = pow_of_ten[exponent_accum];
-            else{
-                while(exponent_accum--){
-                    exponent*=10.0;
-                }
+            while(exponent_accum--){
+                exponent*=10.0;
             }
             if(exponent_is_negative)
                 exponent=1.0/exponent;
@@ -81,11 +78,10 @@ double NumberLiteral(const char **in){
         }
 
         {
-            double divider = pow_of_ten[places];
             double fraction = decimal;
             double that = whole;
-            
-            fraction /= divider;
+            while(places--)
+                fraction/=10.0;
             
             in[0] = at;
             
