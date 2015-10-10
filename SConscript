@@ -18,7 +18,7 @@ def AddModule(name, env, module_list, asm):
     else:
         module_list+=[os.path.join(module_path, name + ".c")]
 
-if (sys.platform == 'darwin' or (sys.platform.startswith('linux') and platform.machine() == 'x86_64')) and not disable_asm:
+if (sys.platform == 'darwin' or (sys.platform.startswith('linux') and sys.platform.machine() == 'x86_64')) and not disable_asm:
     if (sys.platform == 'darwin'):
         environment.Append(ASFLAGS = " -f macho64 -m amd64")
     else:
