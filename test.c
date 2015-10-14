@@ -35,7 +35,10 @@ int main(int argc, char *argv[]){
     
     buffer = malloc(buf.st_size + 1);
     buffer[buf.st_size] = 0;
-    fread(buffer, 1, buf.st_size, file);
+    
+    if(!fread(buffer, 1, buf.st_size, file)){
+        return 1;
+    }
     
     if(argc>2 && strcmp(argv[2], "-p")==0){
         struct Turbo_Value root;
