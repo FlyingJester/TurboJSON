@@ -2,8 +2,11 @@
 section .text
 align 8
 global _FindQuote
+global FindQuote
 global _CompareStrings
+global CompareStrings
 
+FindQuote:
 _FindQuote:
     xor rax, rax
     jmp quote_start
@@ -25,6 +28,7 @@ maybe_quote:
     je quote_inc
     ret
 
+CompareStrings:
 _CompareStrings:
     mov eax, 1
 compare_begin:    

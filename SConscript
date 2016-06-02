@@ -7,7 +7,7 @@ Import("environment")
 environment.Append(tools=['nasm'])
 environment.Replace(AS = "yasm")
 
-disable_asm = True
+disable_asm = False
 tj_source = ["array.c", "number.c", "object.c", "string.c", "error.c", "parse.c"]
 tj_modules = []
 
@@ -37,7 +37,7 @@ else:
     AddModule("whitespace", environment, tj_modules, False)
     AddModule("number_literal", environment, tj_modules, False)
 
-turbojson = environment.Library("turbojson", tj_source + tj_modules)
+turbojson = environment.StaticLibrary("turbojson", tj_source + tj_modules)
 
 test = environment.Program("test", ["test.c"], LIBS = [turbojson])
 
