@@ -7,7 +7,7 @@ Import("environment")
 environment.Append(tools=['nasm'])
 environment.Replace(AS = "yasm")
 
-disable_asm = False
+disable_asm = True
 tj_source = ["array.c", "number.c", "object.c", "string.c", "error.c", "parse.c"]
 tj_modules = []
 
