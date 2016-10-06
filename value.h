@@ -1,6 +1,12 @@
 #pragma once
 #include <stdio.h>
 
+#ifdef _MSC_VER
+#define __restrict__ __restrict
+#elif defined __WATCOMC__
+#define __restrict__
+#endif
+
 #ifdef __cplusplus
 extern "C" {
 #endif
