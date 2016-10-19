@@ -43,7 +43,7 @@ const char *Turbo_Object(struct Turbo_Value * __restrict__ to, const char *in, c
 
                 in++;
 
-                values[to->length-1].name_length = FindQuote(in);
+                values[to->length-1].name_length = FindQuote(in, end - in);
 
                 values[to->length-1].name = in;
                 next = in+values[to->length-1].name_length+1;       

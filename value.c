@@ -39,7 +39,7 @@ const char *Turbo_Value(struct Turbo_Value *to, const char *in, const char *cons
     }
     switch(*in){
         case '"':
-        return Turbo_String(to, in, end);
+        return Turbo_StringCopy(to, in, end);
         case '[':
         return Turbo_Array(to, in, end);
         case '{':

@@ -39,6 +39,4 @@ else:
 
 turbojson = environment.StaticLibrary("turbojson", tj_source + tj_modules)
 
-test = environment.Program("test", ["test.c"], LIBS = [turbojson])
-
 Return("turbojson")
