@@ -45,7 +45,7 @@ int TurboFree(struct Turbo_Value *that){
             that->value.object = NULL;
             return that->length = 0;
         case TJ_String:
-            free(that->value.string);
+            free((void*)that->value.string);
             that->value.string = NULL;
             return that->length = 0;
         default:
